@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fast-Clock Pressure, Faculty Burnout &amp; DORA Reform — Graduate Higher Education SD Simulator (Case HEI-B)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'], mono: ['JetBrains Mono', 'ui-monospace', 'monospace'] },
+          colors: {
+            navy: { 50: '#f4f8fc', 100: '#e2ecf7', 800: '#0f2648', 900: '#091830' },
+            tealb: '#008080', coralb: '#c02e26', goldb: '#c47c10', forestb: '#207e44', purpleb: '#6a3d9a'
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; background: #f8fafc; color: #0f172a; }
+    input[type="range"] { accent-color: #0f2648; cursor: pointer; }
+  </style>
+</head>
+<body class="antialiased">
+  <div id="toast" class="fixed bottom-5 right-5 z-50 hidden transition-all duration-300 opacity-0 translate-y-2">
+    <div class="bg-navy-900 text-white text-xs font-medium px-4 py-3 rounded-xl shadow-xl border border-slate-700 flex items-center gap-2">
+      <span class="w-2.5 h-2.5 rounded-full bg-teal-400"></span>
+      <span id="toast-msg">Done</span>
+    </div>
+  </div>
+
+  <header class="sticky top-0 z-40 bg-navy-900/95 backdrop-blur text-white border-b border-slate-800 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-teal-500 to-purple-700 flex items-center justify-center font-extrabold text-xs shadow">SD</div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-[10px] uppercase tracking-widest font-semibold text-teal-300">Open Science RK4 Flight Simulator</span>
+            <span class="hidden sm:inline-block px-2 py-0.5 text-[10px] rounded-full bg-slate-800 text-slate-300 border border-slate-700">J. Higher Education Policy &amp; Management</span>
+          </div>
+          <h1 class="text-sm sm:text-base font-bold leading-snug">Fast-Clock Pressure, Faculty Burnout &amp; DORA Reform under GenAI (Case HEI-B)</h1>
+        </div>
+      </div>
+      <nav class="flex flex-wrap items-center gap-1.5 text-xs font-medium">
+        <a href="#simulator" class="px-2.5 py-1.5 rounded-lg text-slate-200 hover:bg-slate-800 transition">Simulator</a>
+        <a href="#orthogonality" class="px-2.5 py-1.5 rounded-lg text-slate-200 hover:bg-slate-800 transition">3-Pillar Insight</a>
+        <a href="#cite" class="px-2.5 py-1.5 rounded-lg text-slate-200 hover:bg-slate-800 transition">Open Science</a>
+        <button onclick="exportCSV()" class="ml-1 px-3 py-1.5 rounded-lg bg-teal-600 hover:bg-teal-500 text-white font-semibold transition">Export CSV</button>
+      </nav>
+    </div>
+  </header>
+
+  <section class="bg-gradient-to-b from-navy-900 via-navy-800 to-slate-900 text-white border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+      <div class="grid lg:grid-cols-12 gap-6 items-center">
+        <div class="lg:col-span-8 space-y-3">
+          <div class="flex flex-wrap gap-2 text-[11px]">
+            <span class="px-2.5 py-0.5 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30 font-semibold">9 Stocks · 25 ODE States · RK4 (&Delta;t = 0.0625 yr)</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-200 border border-purple-500/30 font-semibold">7 Policy Levers · Exact Conservation (&lt; 10<sup>-12</sup>)</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-medium">Anonymized Case HEI-B (0 PII)</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold leading-tight">
+            Tri-Pillar Policy Sandbox: Governance (DORA), Graduate Market &amp; AI Authentic Assessment
+          </h2>
+          <p class="text-sm text-slate-300 leading-relaxed max-w-3xl">
+            Toggle any combination of the <strong>7 structural policy levers</strong> across 2020–2035. Verify why DORA alone cuts APC spending (44.6%) without fixing senior-faculty erosion, why market growth alone leaves faculty above the <strong>55-pt burnout cliff</strong>, and how synchronizing all 3 pillars lifts enrollment +76% and reputation to 73.0.
+          </p>
+        </div>
+        <div class="lg:col-span-4 bg-slate-800/75 border border-slate-700 rounded-2xl p-4 text-xs space-y-2">
+          <div class="text-[11px] font-bold uppercase tracking-wider text-teal-300">Authors &amp; Affiliations</div>
+          <p class="text-slate-100"><strong>Jorge Andrick Parra Valencia</strong><sup>1,*</sup> &amp; <strong>Beatriz Eugenia Mar&iacute;n Ospina</strong><sup>2</sup></p>
+          <p class="text-slate-300 text-[11px]"><sup>1</sup>Universidad Aut&oacute;noma de Bucaramanga (UNAB) &bull; <sup>2</sup>Instituci&oacute;n Universitaria Antonio Jos&eacute; Camacho (UniCamacho), Colombia</p>
+          <p class="text-[11px] text-slate-400 pt-1 border-t border-slate-700">Audited via 8 Forrester–Senge/Barlas tests, 3-step RK4 convergence, and 6,400 Sobol runs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main id="simulator" class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+    <div class="flex flex-wrap items-end justify-between gap-3 mb-4">
+      <div>
+        <span class="text-xs font-bold uppercase tracking-wider text-teal-700">Exact Browser-Native 25-State RK4 Engine (2020–2035)</span>
+        <h2 class="text-xl sm:text-2xl font-extrabold text-navy-900">1. Seven-Lever Graduate Sustainability &amp; Burnout Simulator</h2>
+      </div>
+      <label class="inline-flex items-center gap-2 bg-white px-3 py-2 rounded-xl border border-slate-200 shadow-sm text-xs cursor-pointer">
+        <input type="checkbox" id="chkBase" checked onchange="updateSim()" class="w-4 h-4 accent-coralb rounded" />
+        <span class="font-medium text-slate-700">Overlay 01 Status Quo</span>
+      </label>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 mb-6">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+        <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Published Ablation &amp; Barlas Extreme Scenarios:</span>
+        <span id="active-badge" class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-navy-50 text-navy-800 border border-navy-100">Active: 06 Integral Reform (7 Levers)</span>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2">
+        <button data-preset="sq" onclick="applyPreset('sq')" class="preset-btn px-2.5 py-2 rounded-xl text-xs border text-left transition"><div class="font-bold">01 Status Quo</div><div class="text-[10px] opacity-80">Fast-Clock</div></button>
+        <button data-preset="dora" onclick="applyPreset('dora')" class="preset-btn px-2.5 py-2 rounded-xl text-xs border text-left transition"><div class="font-bold">02 DORA</div><div class="text-[10px] opacity-80">Lever 1 Only</div></button>
+        <button data-preset="gov" onclick="applyPreset('gov')" class="preset-btn px-2.5 py-2 rounded-xl text-xs border text-left transition"><div class="font-bold">03 Gov (3)</div><div class="text-[10px] opacity-80">DORA+Prom+Pay</div></button>
+        <button data-preset="mkt" onclick="applyPreset('mkt')" class="preset-btn px-2.5 py-2 rounded-xl text-xs border text-left transition"><div class="font-bold">04 Market</div><div class="text-[10px] opacity-80">Tuition+Net</div></button>
+        <button data-preset="ai" onclick="applyPreset('ai')" class="preset-btn px-2.5 py-2 rounded-xl text-xs border text-left transition"><div class="font-bold">05 AI Ped.</div><div class="text-[10px] opacity-80">Brain+DualClk</div></button>
+        <button data-preset="all7" onclick="applyPreset('all7')" class="preset-btn px-2.5 py-2 rounded-xl text-xs border text-left transition"><div class="font-bold">06 Integral</div><div class="text-[10px] opacity-80">All 7 Levers</div></button>
+        <button data-preset="ext1" onclick="applyPreset('ext1')" class="preset-btn px-2.5 py-2 rounded-xl text-xs border text-left transition"><div class="font-bold">07 Ext. 1</div><div class="text-[10px] opacity-80">-40% Demand</div></button>
+        <button data-preset="ext2" onclick="applyPreset('ext2')" class="preset-btn px-2.5 py-2 rounded-xl text-xs border text-left transition"><div class="font-bold">08 Ext. 2</div><div class="text-[10px] opacity-80">Unchecked AI</div></button>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-12 gap-6 items-start">
+      <aside class="lg:col-span-4 bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-4 lg:sticky lg:top-20">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+          <div>
+            <h3 class="text-sm font-bold text-navy-900">7 Structural Policy Switches</h3>
+            <p class="text-[11px] text-slate-500">Grouped by the 3 orthogonal pillars</p>
+          </div>
+          <button onclick="applyPreset('all7')" class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-100 hover:bg-slate-200">All 7 ON</button>
+        </div>
+
+        <div class="p-3 rounded-xl bg-amber-50/70 border border-amber-200 space-y-2 text-xs">
+          <div class="text-[11px] font-bold uppercase text-amber-900">Pillar 1: Governance (100% of Stress)</div>
+          <label class="flex items-center justify-between cursor-pointer"><span>1. DORA Reform (Scopus 1.8 &rarr; 1.0)</span><input id="sw-dora" type="checkbox" checked onchange="onControl()" class="w-4 h-4 accent-goldb" /></label>
+          <label class="flex items-center justify-between cursor-pointer"><span>2. Promotion Quotas (0.35 &rarr; 1.0)</span><input id="sw-esc" type="checkbox" checked onchange="onControl()" class="w-4 h-4 accent-goldb" /></label>
+          <label class="flex items-center justify-between cursor-pointer"><span>3. Graduate Payment Agility</span><input id="sw-pag" type="checkbox" checked onchange="onControl()" class="w-4 h-4 accent-goldb" /></label>
+        </div>
+
+        <div class="p-3 rounded-xl bg-teal-50/70 border border-teal-200 space-y-2 text-xs">
+          <div class="text-[11px] font-bold uppercase text-teal-900">Pillar 2: Graduate Market (98.7% of Cohort)</div>
+          <label class="flex items-center justify-between cursor-pointer"><span>4. Marginal-Cost Tuition (+80% dem.)</span><input id="sw-cm" type="checkbox" checked onchange="onControl()" class="w-4 h-4 accent-tealb" /></label>
+          <label class="flex items-center justify-between cursor-pointer"><span>5. Active Alumni Network (+35%)</span><input id="sw-red" type="checkbox" checked onchange="onControl()" class="w-4 h-4 accent-tealb" /></label>
+        </div>
+
+        <div class="p-3 rounded-xl bg-purple-50/70 border border-purple-200 space-y-2 text-xs">
+          <div class="text-[11px] font-bold uppercase text-purple-900">Pillar 3: AI Pedagogy (56.7% of Reputation)</div>
+          <label class="flex items-center justify-between cursor-pointer"><span>6. Brain-First Pedagogy (0% offload)</span><input id="sw-bf" type="checkbox" checked onchange="onControl()" class="w-4 h-4 accent-purpleb" /></label>
+          <label class="flex items-center justify-between cursor-pointer"><span>7. Dual-Clock Authentic Eval (+25%)</span><input id="sw-dc" type="checkbox" checked onchange="onControl()" class="w-4 h-4 accent-purpleb" /></label>
+        </div>
+
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-2.5 text-xs">
+          <div class="text-[11px] font-bold uppercase text-slate-700">External Stress &amp; AI Shocks</div>
+          <div>
+            <div class="flex justify-between font-semibold"><span>Undergrad Base Demand</span><span id="v-du" class="font-mono">4000</span></div>
+            <input id="sl-du" type="range" min="2000" max="4800" step="200" value="4000" oninput="onControl()" class="w-full" />
+          </div>
+          <div>
+            <div class="flex justify-between font-semibold"><span>GenAI Adoption Rate</span><span id="v-ai" class="font-mono">0.85</span></div>
+            <input id="sl-ai" type="range" min="0.00" max="1.00" step="0.05" value="0.85" oninput="onControl()" class="w-full" />
+          </div>
+        </div>
+
+        <div class="flex gap-2">
+          <button onclick="exportCSV()" class="flex-1 py-2.5 rounded-xl bg-navy-800 hover:bg-navy-700 text-white text-xs font-semibold transition">Download CSV</button>
+          <button onclick="copyJSON()" class="flex-1 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition">Copy Config</button>
+        </div>
+      </aside>
+
+      <div class="lg:col-span-8 space-y-5">
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+            <div class="text-[11px] font-semibold text-slate-500">2035 Master's Students (M)</div>
+            <div id="k-maes" class="text-2xl font-extrabold text-teal-700 mt-1">30.04</div>
+            <div id="k-egr" class="text-[11px] text-slate-500 font-mono">IT Alumni: 291.2</div>
+          </div>
+          <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+            <div class="text-[11px] font-semibold text-slate-500">Faculty Stress (S<sub>2035</sub>)</div>
+            <div id="k-est" class="text-2xl font-extrabold text-emerald-700 mt-1">23.78</div>
+            <div class="text-[11px] text-slate-500 font-mono">Turnover Cliff: 55.0 pts</div>
+          </div>
+          <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+            <div class="text-[11px] font-semibold text-slate-500">Full Professors (F<sub>T</sub>)</div>
+            <div id="k-tit" class="text-2xl font-extrabold text-navy-900 mt-1">21.38</div>
+            <div id="k-fuga" class="text-[11px] text-slate-500 font-mono">Stress Attr.: 0.06%/yr</div>
+          </div>
+          <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+            <div class="text-[11px] font-semibold text-slate-500">External Reputation</div>
+            <div id="k-rep" class="text-2xl font-extrabold text-purpleb mt-1">73.02</div>
+            <div class="text-[11px] text-slate-500 font-mono">Baseline 2020: 62.59</div>
+          </div>
+          <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+            <div class="text-[11px] font-semibold text-slate-500">Annual APC Outlays</div>
+            <div id="k-apc" class="text-2xl font-extrabold text-goldb mt-1">1.64 Bn</div>
+            <div class="text-[11px] text-slate-500 font-mono">Status Quo: 2.96 Bn COP</div>
+          </div>
+          <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+            <div class="text-[11px] font-semibold text-slate-500">Human AI Premium (&Pi;<sub>hum</sub>)</div>
+            <div id="k-prem" class="text-2xl font-extrabold text-indigo-700 mt-1">1.250</div>
+            <div id="k-cons" class="text-[11px] text-slate-500 font-mono">Cons. Err: 0.00e+0</div>
+          </div>
+        </div>
+
+        <div id="diag-box" class="rounded-2xl bg-navy-900 text-slate-100 p-4 border-l-4 border-teal-400 text-xs leading-relaxed"></div>
+
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+            <h4 class="text-xs font-bold text-navy-900 mb-2">(a) Active Master's Students M(t) (2020–2035)</h4>
+            <div class="h-56"><canvas id="cMaes"></canvas></div>
+          </div>
+          <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+            <h4 class="text-xs font-bold text-navy-900 mb-2">(b) Faculty Stress S(t) vs. 55-pt Turnover Cliff</h4>
+            <div class="h-56"><canvas id="cEst"></canvas></div>
+          </div>
+          <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+            <h4 class="text-xs font-bold text-navy-900 mb-2">(c) Full Professors F<sub>T</sub>(t) (Senior Faculty)</h4>
+            <div class="h-56"><canvas id="cTit"></canvas></div>
+          </div>
+          <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+            <h4 class="text-xs font-bold text-navy-900 mb-2">(d) External Reputation R<sub>ext</sub>(t) (SMTH3, 4 yr)</h4>
+            <div class="h-56"><canvas id="cRep"></canvas></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <section id="orthogonality" class="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+      <h2 class="text-lg font-extrabold text-navy-900 mb-1">2. Tri-Pillar Functional Orthogonality (Sobol Policy-Space Decomposition, N = 1,280)</h2>
+      <p class="text-xs text-slate-600 mb-4">Each policy family controls a distinct institutional dimension; isolated reforms leave the other two dimensions exposed.</p>
+      <div class="grid md:grid-cols-3 gap-4 text-xs">
+        <div class="p-4 rounded-xl bg-amber-50 border border-amber-200">
+          <div class="font-bold text-amber-900 mb-1">Pillar 1: Governance (DORA + Prom. + Pay)</div>
+          <p class="text-slate-700">Explains <strong>100.0%</strong> of faculty stress variance, slashes APC spending by <strong>44.6%</strong> (1.32 Bn COP/yr saved), and expands Full Professors +62.7%—yet leaves Master's enrollment flat (17.1).</p>
+        </div>
+        <div class="p-4 rounded-xl bg-teal-50 border border-teal-200">
+          <div class="font-bold text-teal-900 mb-1">Pillar 2: Market (Marginal Tuition + Alumni)</div>
+          <p class="text-slate-700">Explains <strong>98.7%</strong> of Master's cohort variance and 43.5% of reputation—yet preserves faculty burnout above the 55-pt cliff (56.29 pts) if deployed alone.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-purple-50 border border-purple-200">
+          <div class="font-bold text-purple-900 mb-1">Pillar 3: AI Pedagogy (Brain-First + Dual-Clock)</div>
+          <p class="text-slate-700">Explains <strong>56.7%</strong> of external reputation variance by neutralizing generative AI cognitive offloading and lifting the human employability premium from 0.703 to 1.250.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cite" class="max-w-7xl mx-auto px-4 sm:px-6 py-6 pb-12">
+    <div class="bg-navy-900 text-white rounded-2xl p-6 grid md:grid-cols-12 gap-6 text-xs">
+      <div class="md:col-span-5 space-y-2.5">
+        <span class="text-[11px] font-bold uppercase tracking-wider text-teal-300">Open Science &amp; Confidentiality</span>
+        <h3 class="text-lg font-extrabold">3. Citation &amp; Reproducibility</h3>
+        <p class="text-slate-300 leading-relaxed">
+          Replicates the exact 25-state RK4 System Dynamics model of anonymized <strong>Case HEI-B</strong> (<code class="font-mono text-teal-300">Grad_DORA_SD_Model.stmx</code>). Zero proprietary institutional records or individual PII are stored.
+        </p>
+        <div class="flex gap-2 pt-1">
+          <button onclick="copyBib('bibtex')" class="px-3 py-2 rounded-lg bg-teal-600 hover:bg-teal-500 font-semibold">Copy BibTeX</button>
+          <button onclick="copyBib('apa')" class="px-3 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 font-semibold">Copy APA</button>
+        </div>
+      </div>
+      <div class="md:col-span-7">
+        <pre id="bib-box" class="bg-slate-950 border border-slate-800 rounded-xl p-4 font-mono text-[11px] text-teal-200 overflow-x-auto leading-relaxed">@article{parravalencia2026dora,
+  author  = {Parra Valencia, Jorge Andrick and Mar{\'{i}}n Ospina, Beatriz Eugenia},
+  title   = {Fast-Clock Publication Pressure, Faculty Burnout, and Responsible Assessment Reform in Graduate Higher Education: A System Dynamics Policy Analysis under Generative AI Adoption (2020--2035)},
+  journal = {Journal of Higher Education Policy and Management},
+  year    = {2026},
+  publisher = {Routledge}
+}</pre>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const PRESETS = {
+      sq:   { label: '01 Status Quo (Fast-Clock)', dora:0, esc:0, pag:0, cm:0, red:0, bf:0, dc:0, du:4000, dm:8, ai:0.85, wr:0.35, msc:1.8 },
+      dora: { label: '02 DORA Reform Only', dora:1, esc:0, pag:0, cm:0, red:0, bf:0, dc:0, du:4000, dm:8, ai:0.85, wr:0.35, msc:1.8 },
+      gov:  { label: '03 Governance (DORA+Prom.+Pay)', dora:1, esc:1, pag:1, cm:0, red:0, bf:0, dc:0, du:4000, dm:8, ai:0.85, wr:0.35, msc:1.8 },
+      mkt:  { label: '04 Market (Marg. Tuition+Net)', dora:0, esc:0, pag:0, cm:1, red:1, bf:0, dc:0, du:4000, dm:8, ai:0.85, wr:0.35, msc:1.8 },
+      ai:   { label: '05 AI Pedagogy (Brain-First+DC)', dora:0, esc:0, pag:0, cm:0, red:0, bf:1, dc:1, du:4000, dm:8, ai:0.85, wr:0.35, msc:1.8 },
+      all7: { label: '06 Integral Reform (All 7 Levers)', dora:1, esc:1, pag:1, cm:1, red:1, bf:1, dc:1, du:4000, dm:8, ai:0.85, wr:0.35, msc:1.8 },
+      ext1: { label: '07 Extreme 1: -40% Demand Shock', dora:0, esc:0, pag:0, cm:0, red:0, bf:0, dc:0, du:2400, dm:4, ai:0.85, wr:0.35, msc:1.8 },
+      ext2: { label: '08 Extreme 2: Unchecked AI + Quota 2.4', dora:0, esc:0, pag:0, cm:0, red:0, bf:0, dc:0, du:4000, dm:8, ai:1.00, wr:0.60, msc:2.4 }
+    };
+
+    let cfg = { ...PRESETS.all7 };
+    let activeId = 'all7';
+    let sqRun = null, lastRun = null;
+    const charts = {};
+
+    function satTanh(b) {
+      const a = Math.max(-40, Math.min(40, 2 * b / 100));
+      return 100 * (1 - 2 / (Math.exp(a) + 1));
+    }
+    function smoothPos(x, eps) { return (x + Math.sqrt(x * x + eps * eps) - eps) / 2; }
+
+    function initState(c) {
+      const fCup = 0.35 + 0.65 * c.esc;
+      const fric = 0.8 - 0.7 * c.pag;
+      const eq0 = 100 - ((1 - fCup) * 40 + fric * 30);
+      const clima0 = 100 - (45 / 1.35) * 0.6 + (eq0 - 50) * 0.4;
+      const repInt0 = clima0 * 0.6 + eq0 * 0.4;
+      const eros0 = 0.35 * smoothPos(70 - repInt0, 2.0);
+      const calp0 = 88 - eros0;
+      const cob0 = (45 * 1.8) / Math.max(1, 180 * 0.12);
+      const plena0 = 1 - Math.exp(-cob0);
+      const rend0 = (1 - c.bf) * c.ai * c.wr;
+      const prima0 = (1 - rend0) * (1 + 0.25 * c.dc);
+      const calPer0 = satTanh(calp0 * 0.6 + plena0 * 40 * prima0);
+      const repExt0 = satTanh(calPer0 * 0.7 + (180 / 200) * 30);
+      return [
+        12000, 16.5, 180, 70, 45, 35, 15, 45, 12246.5, 0.1,
+        clima0, clima0, clima0, repInt0, repInt0, repInt0,
+        calp0, calp0, calp0, calPer0, calPer0, calPer0, repExt0, repExt0, repExt0
+      ];
+    }
+
+    function derivs(y, c) {
+      const preg = Math.max(0, y[0]), maes = Math.max(0, y[1]), egr = Math.max(0, y[2]),
+            red = Math.max(0, y[3]), emp = Math.max(0, y[4]), asis = Math.max(0, y[5]),
+            tit = Math.max(0, y[6]), estr = Math.max(0, y[7]), acum = y[8], mPerc = y[9];
+      const cl1=y[10], cl2=y[11], clOut=y[12], ri1=y[13], ri2=y[14], riOut=y[15],
+            cp1=y[16], cp2=y[17], cpOut=y[18], ce1=y[19], ce2=y[20], ceOut=y[21],
+            re1=y[22], re2=y[23], reOut=y[24];
+
+      const indRep = reOut / 62.587110992;
+      const tAdmP = c.du * indRep * 0.6;
+      const tGradP = preg * 0.85 / 5.0;
+      const tDesP = preg * 0.15 / 5.0;
+      const tAdmM = c.dm * (1 + 0.8 * c.cm) * indRep + tGradP * 0.0015;
+      const tGradM = maes * 0.92 / 1.5;
+      const tDesM = maes * 0.08 / 1.5;
+      const tRetE = egr / 25.0;
+      const tVincR = tGradM * (0.45 + 0.35 * c.red);
+      const tDesvR = red / 8.0;
+      const tAdhEmp = 300 * 0.04 * indRep;
+      const tCieEmp = emp / 4.0;
+
+      const totDoc = asis + tit;
+      const tContr = Math.max(0, (50 - totDoc) / 1.0);
+      const fCup = 0.35 + 0.65 * c.esc;
+      const tAsc = (asis * 0.2 / 5.0) * fCup;
+      const fuga = 0.008 * Math.exp(Math.max(-30, Math.min(20, (estr - 55) / 12)));
+      const tRetA = asis * (0.03 + fuga);
+      const tRetT = tit * (0.04 + 0.4 * fuga);
+
+      const pEfic = 1 + 3.0 * smoothPos(0.1 - mPerc, 0.01);
+      const metaSc = c.msc + (1.0 - c.msc) * c.dora;
+      const lam = (metaSc / 1.5) * pEfic;
+      const ingTot = preg * 16e6 + maes * 22e6;
+      const apc = 2.5e9 * lam;
+      const costTot = 160e9 + totDoc * 120e6 + apc;
+      const margNeto = ingTot > 1 ? (ingTot - costTot) / ingTot : 0;
+
+      const fric = 0.8 - 0.7 * c.pag;
+      const eq = 100 - ((1 - fCup) * 40 + fric * 30 + (pEfic - 1) * 30);
+      const tGenE = lam * 17.5 + (100 - eq) * 0.15;
+      const tAlivE = estr / 2.0;
+
+      const clIn = 100 - (estr / 1.35) * 0.6 + (eq - 50) * 0.4;
+      const riIn = clOut * 0.6 + eq * 0.4;
+      const eros = 0.35 * smoothPos(70 - riOut, 2.0);
+      const cpIn = 88 - eros;
+
+      const cob = (emp * 1.8) / Math.max(1, egr * 0.12);
+      const plena = 1 - Math.exp(-cob);
+      const rend = (1 - c.bf) * c.ai * c.wr;
+      const prima = (1 - rend) * (1 + 0.25 * c.dc);
+      const ceIn = satTanh(cpOut * 0.6 + plena * 40 * prima);
+      const reIn = satTanh(ceOut * 0.7 + (egr / 200) * 30);
+
+      const netBF = tAdmP + tAdmM + tContr - tGradP - tDesP - tDesM - tRetE - tRetA - tRetT;
+      const consErr = Math.abs((preg + maes + egr + asis + tit) - acum);
+
+      const dy = [
+        tAdmP - tGradP - tDesP, tAdmM - tGradM - tDesM, tGradM - tRetE, tVincR - tDesvR, tAdhEmp - tCieEmp,
+        tContr - tAsc - tRetA, tAsc - tRetT, tGenE - tAlivE, netBF, (margNeto - mPerc) / 0.25,
+        (3/2.5)*(clIn - cl1), (3/2.5)*(cl1 - cl2), (3/2.5)*(cl2 - clOut),
+        (3/2.0)*(riIn - ri1), (3/2.0)*(ri1 - ri2), (3/2.0)*(ri2 - riOut),
+        (3/3.0)*(cpIn - cp1), (3/3.0)*(cp1 - cp2), (3/3.0)*(cp2 - cpOut),
+        (3/3.0)*(ceIn - ce1), (3/3.0)*(ce1 - ce2), (3/3.0)*(ce2 - ceOut),
+        (3/4.0)*(reIn - re1), (3/4.0)*(re1 - re2), (3/4.0)*(re2 - reOut)
+      ];
+      return { dy, repExt: reOut, fuga, apcBn: apc / 1e9, prima, consErr };
+    }
+
+    function simRK4(c) {
+      const dt = 0.0625, steps = 240; // 15 yr
+      let y = initState(c);
+      const out = { yr: [], maes: [], egr: [], est: [], tit: [], rep: [], fuga: [], apc: [], prima: [], cons: 0 };
+      for (let s = 0; s <= steps; s++) {
+        const st = derivs(y, c);
+        if (st.consErr > out.cons) out.cons = st.consErr;
+        if (s % 16 === 0) {
+          out.yr.push(2020 + Math.round(s * dt));
+          out.maes.push(+y[1].toFixed(2));
+          out.egr.push(+y[2].toFixed(1));
+          out.tit.push(+y[6].toFixed(2));
+          out.est.push(+y[7].toFixed(2));
+          out.rep.push(+st.repExt.toFixed(2));
+          out.fuga.push(+(st.fuga * 100).toFixed(2));
+          out.apc.push(+st.apcBn.toFixed(2));
+          out.prima.push(+st.prima.toFixed(3));
+        }
+        if (s === steps) break;
+        const k1 = st.dy;
+        const k2 = derivs(y.map((v, i) => v + 0.5 * dt * k1[i]), c).dy;
+        const k3 = derivs(y.map((v, i) => v + 0.5 * dt * k2[i]), c).dy;
+        const k4 = derivs(y.map((v, i) => v + dt * k3[i]), c).dy;
+        y = y.map((v, i) => {
+          const nv = v + (dt / 6) * (k1[i] + 2 * k2[i] + 2 * k3[i] + k4[i]);
+          return i < 8 ? Math.max(0, nv) : nv;
+        });
+      }
+      return out;
+    }
+
+    function cOpts(yLbl, yMin, yMax) {
+      return {
+        responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false },
+        plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } } },
+        scales: {
+          x: { ticks: { font: { size: 10 }, maxTicksLimit: 6 } },
+          y: { min: yMin, max: yMax, title: { display: true, text: yLbl, font: { size: 10 } }, ticks: { font: { size: 10 } } }
+        }
+      };
+    }
+
+    function initCharts() {
+      charts.maes = new Chart(document.getElementById('cMaes'), { type: 'line', data: { labels: [], datasets: [] }, options: cOpts('Master\'s Students', 0, 35) });
+      charts.est  = new Chart(document.getElementById('cEst'),  { type: 'line', data: { labels: [], datasets: [] }, options: cOpts('Stress (pts)', 15, 140) });
+      charts.tit  = new Chart(document.getElementById('cTit'),  { type: 'line', data: { labels: [], datasets: [] }, options: cOpts('Full Professors', 0, 25) });
+      charts.rep  = new Chart(document.getElementById('cRep'),  { type: 'line', data: { labels: [], datasets: [] }, options: cOpts('Reputation (0–100)', 58, 76) });
+    }
+
+    function syncUI() {
+      document.getElementById('sw-dora').checked = cfg.dora >= 0.5;
+      document.getElementById('sw-esc').checked  = cfg.esc >= 0.5;
+      document.getElementById('sw-pag').checked  = cfg.pag >= 0.5;
+      document.getElementById('sw-cm').checked   = cfg.cm >= 0.5;
+      document.getElementById('sw-red').checked  = cfg.red >= 0.5;
+      document.getElementById('sw-bf').checked   = cfg.bf >= 0.5;
+      document.getElementById('sw-dc').checked   = cfg.dc >= 0.5;
+      document.getElementById('sl-du').value     = cfg.du;
+      document.getElementById('sl-ai').value     = cfg.ai;
+      document.getElementById('v-du').textContent = Math.round(cfg.du);
+      document.getElementById('v-ai').textContent = (+cfg.ai).toFixed(2);
+      document.getElementById('active-badge').textContent = `Active: ${cfg.label}`;
+      document.querySelectorAll('.preset-btn').forEach(b => {
+        const on = b.getAttribute('data-preset') === activeId;
+        b.className = on
+          ? 'preset-btn px-2.5 py-2 rounded-xl text-xs border text-left bg-navy-900 text-white border-navy-900 shadow transition'
+          : 'preset-btn px-2.5 py-2 rounded-xl text-xs border text-left bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100 transition';
+      });
+    }
+
+    function applyPreset(id) { activeId = id; cfg = { ...PRESETS[id] }; syncUI(); updateSim(); }
+
+    function onControl() {
+      activeId = 'custom'; cfg.label = 'Custom 7-Lever Configuration';
+      cfg.dora = document.getElementById('sw-dora').checked ? 1 : 0;
+      cfg.esc  = document.getElementById('sw-esc').checked ? 1 : 0;
+      cfg.pag  = document.getElementById('sw-pag').checked ? 1 : 0;
+      cfg.cm   = document.getElementById('sw-cm').checked ? 1 : 0;
+      cfg.red  = document.getElementById('sw-red').checked ? 1 : 0;
+      cfg.bf   = document.getElementById('sw-bf').checked ? 1 : 0;
+      cfg.dc   = document.getElementById('sw-dc').checked ? 1 : 0;
+      cfg.du   = parseFloat(document.getElementById('sl-du').value);
+      cfg.ai   = parseFloat(document.getElementById('sl-ai').value);
+      cfg.dm   = 8; cfg.wr = 0.35; cfg.msc = 1.8;
+      syncUI(); updateSim();
+    }
+
+    function updateSim() {
+      const r = simRK4(cfg); lastRun = r;
+      const n = r.yr.length - 1;
+      const showBase = document.getElementById('chkBase').checked && activeId !== 'sq';
+
+      document.getElementById('k-maes').textContent = r.maes[n].toFixed(2);
+      document.getElementById('k-egr').textContent  = `IT Alumni: ${r.egr[n].toFixed(1)}`;
+      document.getElementById('k-est').textContent  = r.est[n].toFixed(2);
+      document.getElementById('k-est').className    = r.est[n] >= 55 ? 'text-2xl font-extrabold text-coralb mt-1' : 'text-2xl font-extrabold text-emerald-700 mt-1';
+      document.getElementById('k-tit').textContent  = r.tit[n].toFixed(2);
+      document.getElementById('k-fuga').textContent = `Stress Attr.: ${r.fuga[n].toFixed(2)}%/yr`;
+      document.getElementById('k-rep').textContent  = r.rep[n].toFixed(2);
+      document.getElementById('k-apc').textContent  = `${r.apc[n].toFixed(2)} Bn`;
+      document.getElementById('k-prem').textContent = r.prima[n].toFixed(3);
+      document.getElementById('k-cons').textContent = `Cons. Err: ${r.cons.toExponential(1)}`;
+
+      const diag = document.getElementById('diag-box');
+      if (r.est[n] < 30 && r.maes[n] > 28 && r.rep[n] > 71) {
+        diag.innerHTML = `<strong class="text-emerald-300">SYNCHRONIZED TRI-PILLAR TRANSFORMATION:</strong> Master's enrollment reaches <strong>${r.maes[n].toFixed(2)}</strong> (+76% vs. Status Quo), stress drops to <strong>${r.est[n].toFixed(2)} pts</strong>, Full Professors grow to <strong>${r.tit[n].toFixed(2)}</strong>, APC outlays save <strong>1.32 Bn COP/yr</strong>, and reputation rises to <strong>${r.rep[n].toFixed(2)}</strong>.`;
+      } else if (r.est[n] >= 55) {
+        diag.innerHTML = `<strong class="text-red-300">BURNOUT CLIFF BREACHED (S = ${r.est[n].toFixed(2)} &ge; 55 pts):</strong> Exponential faculty attrition (${r.fuga[n].toFixed(2)}%/yr) erodes Full Professors to <strong>${r.tit[n].toFixed(2)}</strong> while APC outlays remain high (${r.apc[n].toFixed(2)} Bn COP/yr). Activate Pillar 1 Governance levers (DORA + Promotion + Payment Agility).`;
+      } else {
+        diag.innerHTML = `<strong class="text-teal-300">PARTIAL REFORM REGIME:</strong> Faculty stress is controlled at <strong>${r.est[n].toFixed(2)} pts</strong> (Full Professors: <strong>${r.tit[n].toFixed(2)}</strong>), while Master's cohort sits at <strong>${r.maes[n].toFixed(2)}</strong> and reputation at <strong>${r.rep[n].toFixed(2)}</strong>. Combine Pillar 2 (Market) and Pillar 3 (AI Pedagogy) for full synergy.`;
+      }
+
+      charts.maes.data.labels = r.yr;
+      charts.maes.data.datasets = [
+        { label: 'Active Master\'s M(t)', data: r.maes, borderColor: '#008080', borderWidth: 2.6, pointRadius: 2 },
+        ...(showBase ? [{ label: '01 Status Quo', data: sqRun.maes, borderColor: '#c02e26', borderDash: [4, 4], borderWidth: 1.8, pointRadius: 0 }] : [])
+      ];
+      charts.maes.update();
+
+      charts.est.options.scales.y.max = Math.max(75, Math.ceil(Math.max(...r.est) / 10) * 10 + 10);
+      charts.est.data.labels = r.yr;
+      charts.est.data.datasets = [
+        { label: 'Active Stress S(t)', data: r.est, borderColor: '#c02e26', borderWidth: 2.5, pointRadius: 2 },
+        { label: 'Burnout Cliff (55 pts)', data: r.yr.map(() => 55), borderColor: '#64748b', borderDash: [5, 3], borderWidth: 1.4, pointRadius: 0 },
+        ...(showBase ? [{ label: '01 Status Quo', data: sqRun.est, borderColor: '#c47c10', borderDash: [4, 4], borderWidth: 1.7, pointRadius: 0 }] : [])
+      ];
+      charts.est.update();
+
+      charts.tit.data.labels = r.yr;
+      charts.tit.data.datasets = [
+        { label: 'Active Full Profs F_T(t)', data: r.tit, borderColor: '#0f2648', borderWidth: 2.5, pointRadius: 2 },
+        ...(showBase ? [{ label: '01 Status Quo', data: sqRun.tit, borderColor: '#c02e26', borderDash: [4, 4], borderWidth: 1.8, pointRadius: 0 }] : [])
+      ];
+      charts.tit.update();
+
+      charts.rep.data.labels = r.yr;
+      charts.rep.data.datasets = [
+        { label: 'Active External Rep.', data: r.rep, borderColor: '#6a3d9a', borderWidth: 2.5, pointRadius: 2 },
+        ...(showBase ? [{ label: '01 Status Quo', data: sqRun.rep, borderColor: '#c02e26', borderDash: [4, 4], borderWidth: 1.8, pointRadius: 0 }] : [])
+      ];
+      charts.rep.update();
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast'); document.getElementById('toast-msg').textContent = msg;
+      t.classList.remove('hidden'); requestAnimationFrame(() => t.classList.remove('opacity-0', 'translate-y-2'));
+      clearTimeout(window._tt); window._tt = setTimeout(() => { t.classList.add('opacity-0', 'translate-y-2'); setTimeout(() => t.classList.add('hidden'), 300); }, 2400);
+    }
+    function copyText(txt, msg) {
+      const ta = document.createElement('textarea'); ta.value = txt; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); showToast(msg); } catch (e) {} document.body.removeChild(ta);
+    }
+    function copyBib(fmt) {
+      if (fmt === 'bibtex') copyText(document.getElementById('bib-box').textContent, 'BibTeX copied.');
+      else copyText('Parra Valencia, J. A., & Marín Ospina, B. E. (2026). Fast-Clock Publication Pressure, Faculty Burnout, and Responsible Assessment Reform in Graduate Higher Education: A System Dynamics Policy Analysis under Generative AI Adoption (2020–2035). Journal of Higher Education Policy and Management.', 'APA copied.');
+    }
+    function copyJSON() { copyText(JSON.stringify(cfg, null, 2), 'Config JSON copied.'); }
+    function exportCSV() {
+      if (!lastRun) return;
+      const r = lastRun;
+      const rows = ['Year,Maestrantes,Egresados_TI,Titulares,Estres,Rep_Externa,Fuga_Pct,APC_Bn_COP,Prima_Humana'];
+      for (let i = 0; i < r.yr.length; i++) rows.push([r.yr[i], r.maes[i], r.egr[i], r.tit[i], r.est[i], r.rep[i], r.fuga[i], r.apc[i], r.prima[i]].join(','));
+      const blob = new Blob([rows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob); const a = document.createElement('a');
+      a.href = url; a.download = `hei_b_dora_${activeId}_2020_2035.csv`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+      showToast('CSV exported (2020–2035).');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      sqRun = simRK4(PRESETS.sq);
+      initCharts();
+      applyPreset('all7');
+    });
+  </script>
+</body>
+</html>
